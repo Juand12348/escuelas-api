@@ -57,24 +57,26 @@ export default function Producto() {
   if (!data) return <p>Cargando...</p>;
   console.log("favoritos render", favoritos);
 
-  return (
-    <>
-      <h2>Producto</h2>
+ return (
+  <div className="producto-container">
+    <div className="producto-card">
+      
+      <img
+        src={
+          data.images?.length
+            ? data.images[0]
+            : "https://via.placeholder.com/150"
+        }
+        alt={data.title}
+      />
 
-      <div>
-        <h3>{data.id}</h3>
-        <h4>{data.title}</h4>
-        <p>${data.price}</p>
+      <div className="producto-info">
+        <h3>Producto #{data.id}</h3>
+        <h2>{data.title}</h2>
+
+        <p className="producto-precio">${data.price}</p>
+
         <p>{data.description}</p>
-
-        <img
-          src={
-            data.images?.length
-              ? data.images[0]
-              : "https://via.placeholder.com/150"
-          }
-          alt={data.title}
-        />
 
         <BotonFavorito
           producto={data}
@@ -83,7 +85,7 @@ export default function Producto() {
         />
       </div>
 
-      
-    </>
-  );
+    </div>
+  </div>
+);
 }
