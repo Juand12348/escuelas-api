@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 import "./style.css";
 
@@ -68,50 +69,54 @@ export default function Home() {
   });
 
   return (
-    <div>
-      <div className="filtros">
-        {filtros.map((type) => (
-          <button
-            key={type}
-            onClick={() =>
-              setFiltro(filtro === type ? undefined : type)
-            }
-            className={filtro === type ? "habilitado" : ""}
-          >
-            {type}
-          </button>
-        ))}
-      </div>
+  <div className="home-container">
 
-      <input
-        type="text"
-        placeholder="Buscar..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-      />
+    <div className="filtros">
+      {filtros.map((type) => (
+        <button
+          key={type}
+          onClick={() =>
+            setFiltro(filtro === type ? undefined : type)
+          }
+          className={filtro === type ? "habilitado" : ""}
+        >
+          {type}
+        </button>
+      ))}
+    </div>
 
-      <h2>Productos</h2>
+    <input
+      type="text"
+      placeholder="Buscar..."
+      value={busqueda}
+      onChange={(e) => setBusqueda(e.target.value)}
+    />
 
+    <h2>Productos</h2>
+
+    <div className="product-grid">
       {productsFiltrados.map((product) => (
-  <Link
-    to={`/producto/${product.id}`}
-    key={product.id}
-    className="card-link"
-  >
-    <div className="card">
-      <img
-        src={
-          product.images?.length
-            ? product.images[0]
-            : "https://via.placeholder.com/150"
-        }
-        alt={product.title}
-      />
-      <h4>{product.title}</h4>
-      <p>${product.price}</p>
+        <Link
+          to={`/producto/${product.id}`}
+          key={product.id}
+          className="card-link"
+        >
+          <div className="card">
+            <img
+              src={
+                product.images?.length
+                  ? product.images[0]
+                  : "https://via.placeholder.com/150"
+              }
+              alt={product.title}
+            />
+            <h4>{product.title}</h4>
+            <p>${product.price}</p>
+          </div>
+        </Link>
+      ))}
     </div>
-  </Link>
-))}
-    </div>
-  );
+
+  </div>
+);
 }

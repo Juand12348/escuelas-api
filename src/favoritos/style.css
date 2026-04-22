@@ -1,0 +1,61 @@
+.favoritos {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.favoritos h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #1d4ed8;
+}
+
+.favoritos p {
+  color: #6b7280;
+}
+
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.favorito-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.favorito-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.favorito-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.favorito-card h3 {
+  font-size: 1rem;
+  color: #111827;
+  margin: 8px 0;
+}
+
+.favorito-card p {
+  color: #059669;
+  font-weight: bold;
+}
+
+.favorito-link {
+  text-decoration: none;
+}

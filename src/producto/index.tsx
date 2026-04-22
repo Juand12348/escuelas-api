@@ -1,6 +1,9 @@
-import { useParams } from "react-router";
+// Producto.tsx
+
+import { useParams } from "react-router-dom";
 import "./style.css";
 import { useEffect, useState } from "react";
+import  BotonFavorito  from "../favoritos/BotonFavorito";
 
 interface ProductData {
   id: number;
@@ -16,6 +19,20 @@ export default function Producto() {
 
   const [data, setData] = useState<ProductData | null>(null);
 
+  const [favoritos, setFavoritos] = useState<any[]>([]);
+
+  useEffect(() => {
+
+    const favoritosGuardados = localStorage.getItem(
+      "favoritos"
+    );
+
+    if (favoritosGuardados) {
+      setFavoritos(JSON.parse(favoritosGuardados));
+    }
+
+  }, []);
+
   useEffect(() => {
     if (!id) return;
 
@@ -26,6 +43,7 @@ export default function Producto() {
         );
 
         const data = await res.json();
+
         setData(data);
       } catch (error) {
         console.error("Error cargando datos: ", error);
@@ -34,8 +52,10 @@ export default function Producto() {
 
     fetchData();
   }, [id]);
+  console.log(favoritos);
 
   if (!data) return <p>Cargando...</p>;
+  console.log("favoritos render", favoritos);
 
   return (
     <>
@@ -46,6 +66,7 @@ export default function Producto() {
         <h4>{data.title}</h4>
         <p>${data.price}</p>
         <p>{data.description}</p>
+
         <img
           src={
             data.images?.length
@@ -54,7 +75,15 @@ export default function Producto() {
           }
           alt={data.title}
         />
+
+        <BotonFavorito
+          producto={data}
+          favoritos={favoritos}
+          setFavoritos={setFavoritos}
+        />
       </div>
+
+      
     </>
   );
 }

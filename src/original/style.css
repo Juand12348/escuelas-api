@@ -1,0 +1,79 @@
+.original-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.original-container h2 {
+  color: #1d4ed8;
+  margin-bottom: 10px;
+}
+
+.original-price {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #111827;
+}
+
+.original-price.descuento {
+  color: #059669;
+  font-weight: bold;
+}
+
+.original-game {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.original-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.original-buttons button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.original-buttons button:hover {
+  background: #1d4ed8;
+  color: white;
+  border-color: #1d4ed8;
+}
+
+.original-message {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #374151;
+}
+
+.original-restart {
+  margin-top: 15px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.original-restart:hover {
+  background: #1d4ed8;
+}

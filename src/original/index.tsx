@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./style.css";
 
 export default function Original() {
   const [numeroSecreto, setNumeroSecreto] = useState(
@@ -23,13 +24,19 @@ export default function Original() {
   };
 
   return (
-    <div style={{ border: "1px solid #ccc", padding: 20 }}>
-      <h2>Producto</h2>
-      <p>Precio: {descuento ? "$85 (con descuento)" : "$100"}</p>
+  <div className="original-container">
 
-      <p>🎮 Adivina el número (1-5)</p>
+    <h2>Producto</h2>
 
-      <div>
+    <p className={`original-price ${descuento ? "descuento" : ""}`}>
+      Precio: {descuento ? "$85 (con descuento)" : "$100"}
+    </p>
+
+    <div className="original-game">
+
+      <p>Adivina el número (1-5)</p>
+
+      <div className="original-buttons">
         {[1, 2, 3, 4, 5].map((n) => (
           <button key={n} onClick={() => intentar(n)}>
             {n}
@@ -37,9 +44,14 @@ export default function Original() {
         ))}
       </div>
 
-      <p>{mensaje}</p>
+      <p className="original-message">{mensaje}</p>
 
-      <button onClick={reiniciar}>Reiniciar juego</button>
+      <button className="original-restart" onClick={reiniciar}>
+        Reiniciar juego
+      </button>
+
     </div>
-  );
+
+  </div>
+);
 }
