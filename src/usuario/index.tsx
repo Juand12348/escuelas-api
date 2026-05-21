@@ -1,106 +1,147 @@
-import { useState} from "react";
-import "./style.css"
-
-interface User {
-  nombre: string;
-  correo: string;
-  edad: string;
-  telefono: string;
-  ciudad: string;
-}
+import { useEffect, useState } from "react";
+import { auth, db } from "../firebase/firebaseConfig";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import "./style.css";
 
 
-export default function Usuario(){
-const [user, setUser] = useState<User>({
-    nombre: "",
-    correo: "",
-    edad: "",
-    telefono: "",
-    ciudad: "",
-  });
+export default function Usuario() {
+  const [nombre, setNombre] = useState<string>("");
+  const [fecha, setFecha] = useState<string>("");
+  const [telefono, setTelefono] = useState<string>("");
+  const [cargando, setCargando] = useState<boolean>(true);
 
-  const cambiarUsuario = (evento: any) => {
-  setUser({
-    ...user,
-    [evento.target.name]: evento.target.value,
-  });
-};
+  const uid = auth.currentUser?.uid;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const traerDatos = async (): Promise<void> => {
+      if (!uid) {
+        setCargando(false);
+        return;
+      }
+
+      try {
+        const docRef = doc(db, "usuarios", uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+
+          setNombre(data.nombre ?? "");
+          setFecha(data.fecha ?? "");
+          setTelefono(data.telefono ?? "");
+        } else {
+          alert("Usuario no encontrado");
+        }
+
+      } catch (error) {
+        console.error(error);
+        alert("Error cargando datos");
+      }
+
+      setCargando(false);
+    };
+
+    traerDatos();
+
+  }, [uid]);
+
+  const actualizarDatos = async (): Promise<void> => {
+    if (!uid) {
+      alert("No hay usuario autenticado");
+      return;
+    }
+
+    try {
+      const docRef = doc(db, "usuarios", uid);
+
+      await updateDoc(docRef, {
+        nombre,
+        fecha,
+        telefono,
+      });
+
+      alert("Datos actualizados");
+
+    } catch (error) {
+      console.error(error);
+      alert("Error al actualizar");
+    }
+  };
+
+  if (cargando) {
+    return (
+      <div className="cargando">
+        Cargando...
+      </div>
+    );
+  }
 
   return (
-  <div className="usuario-container">
+  <div className="usuario-page">
 
-    <h2>Configuración de Usuario</h2>
+    <div className="usuario-card">
 
-    <div className="usuario-form">
+      <h1 className="usuario-title">
+        Perfil del Usuario
+      </h1>
 
-      <div className="usuario-field">
-        <label>Nombre</label>
+      <p className="usuario-subtitle">
+        Administra tu información personal
+      </p>
+
+      <div className="usuario-form">
+
         <input
           type="text"
-          name="nombre"
-          value={user.nombre}
-          onChange={cambiarUsuario}
-          placeholder="Tu nombre"
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) =>
+            setNombre(e.target.value)
+          }
         />
-      </div>
 
-      <div className="usuario-field">
-        <label>Correo</label>
         <input
-          type="email"
-          name="correo"
-          value={user.correo}
-          onChange={cambiarUsuario}
-          placeholder="correo@email.com"
+          type="date"
+          value={fecha}
+          onChange={(e) =>
+            setFecha(e.target.value)
+          }
         />
-      </div>
 
-      <div className="usuario-field">
-        <label>Edad</label>
         <input
-          type="number"
-          name="edad"
-          value={user.edad}
-          onChange={cambiarUsuario}
-          placeholder="18"
+          type="tel"
+          placeholder="Teléfono"
+          value={telefono}
+          onChange={(e) =>
+            setTelefono(
+              e.target.value
+            )
+          }
         />
+
+        <button
+          className="save-btn"
+          onClick={
+            actualizarDatos
+          }
+        >
+          Guardar cambios
+        </button>
+
+        <button
+          className="logout-btn"
+          onClick={() =>
+            navigate(
+              "/logout"
+            )
+          }
+        >
+          Cerrar sesión
+        </button>
+
       </div>
-
-      <div className="usuario-field">
-        <label>Teléfono</label>
-        <input
-          type="text"
-          name="telefono"
-          value={user.telefono}
-          onChange={cambiarUsuario}
-          placeholder="3001234567"
-        />
-      </div>
-
-      <div className="usuario-field">
-        <label>Ciudad</label>
-        <input
-          type="text"
-          name="ciudad"
-          value={user.ciudad}
-          onChange={cambiarUsuario}
-          placeholder="Bogotá"
-        />
-      </div>
-
-    </div>
-
-    <button>Guardar</button>
-
-    <div className="usuario-preview">
-
-      <h3>Vista previa</h3>
-
-      <p>Nombre: {user.nombre}</p>
-      <p>Correo: {user.correo}</p>
-      <p>Edad: {user.edad}</p>
-      <p>Teléfono: {user.telefono}</p>
-      <p>Ciudad: {user.ciudad}</p>
 
     </div>
 

@@ -1,4 +1,4 @@
-.usuario-page {
+.login-page {
 
     min-height: 100vh;
 
@@ -13,9 +13,9 @@
 }
 
 
-.usuario-card {
+.login-card {
 
-    width: 520px;
+    width: 430px;
 
     background: white;
 
@@ -24,7 +24,7 @@
     border-radius: 18px;
 
     box-shadow:
-        0 10px 28px
+        0 8px 28px
         rgba(
             0,
             0,
@@ -35,27 +35,29 @@
 }
 
 
-.usuario-title {
+.login-title {
 
     color: #2750d8;
 
-    font-size: 40px;
+    font-size: 42px;
 
-    margin-bottom: 8px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
 
 }
 
 
-.usuario-subtitle {
+.login-subtitle {
 
-    color: #61697a;
+    color: #5d6677;
 
     margin-bottom: 35px;
 
 }
 
 
-.usuario-form {
+.login-form {
 
     display: flex;
 
@@ -64,28 +66,29 @@
 }
 
 
-.usuario-form input {
+.login-form input {
 
     height: 56px;
 
-    margin-bottom: 18px;
-
     border:
+
         1px solid
-        #d7dce4;
+        #d6d9df;
 
     border-radius: 12px;
 
     padding: 0 18px;
 
-    font-size: 15px;
+    font-size: 16px;
 
-    transition: .25s;
+    margin-bottom: 18px;
+
+    transition: 0.25s;
 
 }
 
 
-.usuario-form input:focus {
+.login-form input:focus {
 
     outline: none;
 
@@ -98,13 +101,15 @@
             39,
             80,
             216,
-            .12
+            0.12
         );
 
 }
 
 
-.save-btn {
+.login-btn {
+
+    margin-top: 10px;
 
     height: 58px;
 
@@ -119,14 +124,16 @@
 
     font-size: 18px;
 
+    font-weight: 600;
+
     cursor: pointer;
 
-    margin-top: 10px;
+    transition: 0.25s;
 
 }
 
 
-.save-btn:hover {
+.login-btn:hover {
 
     background:
         #1f45c5;
@@ -134,48 +141,36 @@
 }
 
 
-.logout-btn {
+.login-btn:disabled {
 
-    margin-top: 14px;
+    opacity: .6;
 
-    height: 58px;
+}
 
-    background:
-        #ef4444;
 
-    color: white;
+.register-btn {
+
+    margin-top: 18px;
+
+    width: 100%;
+
+    background: transparent;
 
     border: none;
 
-    border-radius: 12px;
+    color:
+        #2750d8;
 
-    font-size: 16px;
+    font-size: 15px;
 
     cursor: pointer;
 
 }
 
 
-.logout-btn:hover {
+.register-btn:hover {
 
-    background:
-        #dc2626;
-
-}
-
-
-.usuario-loading {
-
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    color: #2750d8;
-
-    font-size: 24px;
+    text-decoration:
+        underline;
 
 }
